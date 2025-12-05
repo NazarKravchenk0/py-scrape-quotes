@@ -51,6 +51,7 @@ def iter_all_quotes() -> List[Quote]:
     while True:
         soup = fetch_page(current_url)
         page_quotes = parse_quotes_from_soup(soup)
+
         if not page_quotes:
             break
 
@@ -70,12 +71,12 @@ def iter_all_quotes() -> List[Quote]:
 
 def write_quotes_to_csv(quotes: List[Quote], output_csv_path: str) -> None:
     """Записать цитаты в CSV-файл."""
-    with open(output_csv_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
+    with open(output_csv_path, "w", newline="", encoding="utf-8") as csvfile:
+        writer = csv.writer(csvfile)
         writer.writerow(["text", "author", "tags"])
 
-        for q in quotes:
-            writer.writerow([q.text, q.author, ", ".join(q.tags)])
+        for quote in quotes:
+            writer.writerow([quote.text, quote.author, ", ".join(quote.tags)])
 
 
 def main(output_csv_path: str) -> None:
